@@ -1,0 +1,18 @@
+body{
+    background: #003835 !important;
+    overflow-y: hidden;
+}
+
+.container{
+    background: #fefefe !important;
+}
+
+.header{
+    background: #eaf7f6;
+    margin-bottom: 20px;
+}
+
+h1{
+    font-weight: 5000 !important;
+}
+

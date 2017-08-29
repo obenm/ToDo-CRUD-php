@@ -19,12 +19,13 @@
         <title>To Do List - CRUD with PHP</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+        <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <center><h1>ToDo List - CRUD with PHP</h1></center>
+                <div class="col-md-12 header"><center><h1>To Do List - CRUD with PHP</h1></center></div>
 
                 <div class="col-md-10 col-md-offset-1">
                     <table class="table table-striped table-hover">
