@@ -18,7 +18,7 @@
 
 Based on Build CRUD Application - PHP & Mysql Course from Udemy.
 * Course URL: https://www.udemy.com/build-crud-application-php-mysql
-* Course Author: Akram Abdulrazaq
+* Course Author: [Akram Abdulrazaq](https://www.udemy.com/user/aa1a82a1-9739-4795-8790-d8b1773e4fce/)
 * Course Certified: https://www.udemy.com/certificate/UC-9S1K2NG3/
 
 
@@ -26,4 +26,5 @@ Based on Build CRUD Application - PHP & Mysql Course from Udemy.
 
 
 Result:
+
 ![Result for CRUD Application with PHP](https://raw.githubusercontent.com/obenm/ToDo-CRUD-php/master/todocrud-banner.jpg)
