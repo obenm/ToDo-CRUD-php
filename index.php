@@ -2,7 +2,15 @@
 
 <?php 
     include("db.php");
-    $sql = "SELECT * FROM task";
+
+    $page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+    $perPage = (isset($_GET['per-page']) && (int)$_GET['per-page'] <= 50 ? (int)$_GET['per-page'] : 8);
+    $start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+    
+    $sql = "SELECT * FROM task LIMIT $start, $perPage"; 
+    $total = $db -> query("SELECT * FROM task ORDER BY datetime DESC") -> num_rows;
+    $pages = ceil($total / $perPage);
+
     $rows = $db -> query($sql);
 ?>
 
@@ -19,9 +27,9 @@
                 <center><h1>ToDo List - CRUD with PHP</h1></center>
 
                 <div class="col-md-10 col-md-offset-1">
-                    <table class="table">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTask-Modal">Add Task</button>
-                        <button type="button" class="btn btn-default pull-right">Print</button>
+                    <table class="table table-striped table-hover">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addTask-Modal" onClick="prepareAdd();">Add Task</button>
+                        <button type="button" class="btn btn-default pull-right" onclick="print()">Print</button>
                         <hr>
                         <thead>
                             <tr>
@@ -41,8 +49,22 @@
                             <?php endwhile; ?>
                         </tbody>
                     </table>
+
+                    <center>
+                        <ul class="pagination">
+                            <?php for($i = 1; $i <= $pages; $i++): ?>
+                                <li><a href="?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                            <?php endfor; ?>
+                        </ul>
+                    </center>
                 </div>
             </div>
+
+            <script>
+                function prepareAdd() {
+                    document.getElementsByName('task')[0].focus();
+                }
+            </script>
 
             <div id="addTask-Modal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -69,6 +91,7 @@
 
             <script>
                 function prepareUpdate(id, description) {
+                    document.getElementsByName('taskUpdate')[0].focus();
                     document.getElementsByName('idUpdate')[0].value = id;
                     document.getElementsByName('taskUpdate')[0].value = description;
                 }
