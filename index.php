@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<?php 
+    include("db.php");
+    $sql = "SELECT * FROM task";
+    $rows = $db -> query($sql);
+?>
+
 <html lang="en"> 
     <head>
         <title>To Do List - CRUD with PHP</title>
@@ -24,12 +31,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php while($row = $rows -> fetch_assoc()):?>
                             <tr>
-                                <td class="col-md-2">07/27/34</td>
-                                <td class="col-md-8">Go to school</td>
-                                <td><button type="button" class="btn btn-warning">Edit</button></td>
-                                <td><button type="button" class="btn btn-danger">Delete</button></td> 
+                                <td class="col-md-2"><?php echo $row["datetime"]; ?></td>
+                                <td class="col-md-8"><?php echo $row["description"]; ?></td>
+                                <td><button type="button" data-toggle="modal" data-target="#updateTask-Modal" class="btn btn-warning" onClick="prepareUpdate('<?php echo $row['id'] ?>', '<?php echo $row['description'] ?>');" >Edit</button></td>
+                                <td><a href="delete.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</button></td>                             
                             </tr>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
@@ -40,15 +49,46 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Task</h4>
+                            <h4 class="modal-title">Add a Task</h4>
                         </div>
                         <div class="modal-body">
-                            <form action="">
+                            <form method="post" action="add.php">
                                 <div class="form-group">
                                     <label for="Task description:"></label>
                                     <input type="text" required name="task" class="form-control">
                                 </div>
                                     <input type="submit" name="send" value="Add Task" class="btn btn-success">                                
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function prepareUpdate(id, description) {
+                    document.getElementsByName('idUpdate')[0].value = id;
+                    document.getElementsByName('taskUpdate')[0].value = description;
+                }
+            </script>
+
+            <div id="updateTask-Modal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit a Task</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="update.php">
+                                <div class="form-group">
+                                    <label for="Task description:"></label>
+                                    <input type="text" required name="idUpdate" class="form-control" style="display: none;">
+                                    <input type="text" required name="taskUpdate" class="form-control">
+                                </div>
+                                    <input type="submit" name="send" value="Update Task" class="btn btn-success">                                
                             </form>
                         </div>
                         <div class="modal-footer">
